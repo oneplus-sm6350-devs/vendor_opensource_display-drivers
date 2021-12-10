@@ -313,6 +313,15 @@ void sde_encoder_recovery_events_handler(struct drm_encoder *encoder,
  */
 bool sde_encoder_in_clone_mode(struct drm_encoder *enc);
 
+/*
+ * sde_encoder_is_cwb_disabling - check if cwb encoder disable is pending
+ * @drm_enc:    Pointer to drm encoder structure
+ * @drm_crtc:    Pointer to drm crtc structure
+ * @Return: true if cwb encoder disable is pending
+ */
+bool sde_encoder_is_cwb_disabling(struct drm_encoder *drm_enc,
+	struct drm_crtc *drm_crtc);
+
 /**
  * sde_encoder_is_primary_display - checks if underlying display is primary
  *     display or not.
@@ -356,4 +365,33 @@ void sde_encoder_needs_hw_reset(struct drm_encoder *enc);
  */
 void sde_encoder_uidle_enable(struct drm_encoder *drm_enc, bool enable);
 
+#if defined(CONFIG_PXLW_IRIS)
+/**
+ * sde_encoder_rc_lock - lock the sde encoder resource control.
+ * @drm_enc:    Pointer to drm encoder structure
+ * @Return:     void.
+ */
+void sde_encoder_rc_lock(struct drm_encoder *drm_enc);
+
+/**
+ * sde_encoder_rc_unlock - unlock the sde encoder resource control.
+ * @drm_enc:    Pointer to drm encoder structure
+ * @Return:     void.
+ */
+void sde_encoder_rc_unlock(struct drm_encoder *drm_enc);
+
+/**
+ * sde_encoder_disable_autorefresh - disable autorefresh
+ * @drm_enc:    Pointer to drm encoder structure
+ * @Return:     void.
+ */
+void sde_encoder_disable_autorefresh_handler(struct drm_encoder *drm_enc);
+
+/**
+ * sde_encoder_is_disabled - encoder is disabled
+ * @drm_enc:    Pointer to drm encoder structure
+ * @Return:     bool.
+ */
+bool sde_encoder_is_disabled(struct drm_encoder *drm_enc);
+#endif
 #endif /* __SDE_ENCODER_H__ */
